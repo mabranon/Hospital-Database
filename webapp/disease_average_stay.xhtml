@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Disease Average Stay</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h2 class="centered headerBorder">Disease Average Stay</h2>
+        <h:panelGroup class="centered">
+        <h:dataTable value="#{diagnosisBean.getDiseaseStay()}" var="disease"
+                     border="1" >
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Disease Name"/>
+                </f:facet>
+                <h:outputText value="#{disease.diseaseName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Average Stay</f:facet>
+                    #{disease.stayAverage}
+            </h:column>
+        </h:dataTable>
+            </h:panelGroup>
+    </h:body>
+</html>

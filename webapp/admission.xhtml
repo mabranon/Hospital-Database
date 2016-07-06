@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Admit Patient</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h2 class="centered headerBorder">Admit Patient</h2>
+        <h:form>
+            <h:panelGrid columns="2" class="centered formBG">
+                <h:panelGroup>
+                    <h:outputText value="Patient ID: " class="noWrap"/>
+                    <h:outputText id="patientIDText" 
+                                  value="#{patientAdmissionBean.patient.ID}"/>
+                    <br/>
+                    <h:outputText value="Last Name: " class="noWrap"/>
+                    <h:outputText id="patientLastNameText" 
+                                  value="#{patientAdmissionBean.patient.lastName}"/>
+                    <br/>
+                    <h:outputText value="First Name: " class="noWrap"/>
+                    <h:outputText id="patientFirstNameText" 
+                                  value="#{patientAdmissionBean.patient.firstName}"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Date of Admission: " class="noWrap"/>
+                    <p:calendar id="dateOfAdmission" required="true" yearRange="c:c" 
+                                navigator="true"
+                                requiredMessage="Please enter admission date"
+                                value="#{patientAdmissionBean.dateOfAdmission}" 
+                                pattern="yyy-MM-dd" >
+                    </p:calendar>
+                    <h:message for="dateOfAdmission" styleClass="error"/>
+                    <br/>
+                    <h:outputText value="Room Number: " class="noWrap"/>
+                    <h:selectOneMenu id="roomInput" required="true"
+                                     requiredMessage="Please select an empty room"
+                                     value="#{patientAdmissionBean.roomNo}">
+                        <f:selectItems value="#{patientAdmissionBean.freeRooms}"/>
+                    </h:selectOneMenu>
+                    <h:message for="roomInput" styleClass="error"/>
+                    <br/>
+                    <h:outputText value="Primary Doctor: " class="noWrap"/>
+                    <h:selectOneMenu id="doctorInput" required="true"
+                                     requiredMessage="Please select a primary physician"
+                                     value="#{patientAdmissionBean.docName}">
+                        <f:selectItems value="#{patientAdmissionBean.doctorNameList}"/>
+                    </h:selectOneMenu>
+                    <h:message for="doctorInput" styleClass="error"/>
+                </h:panelGroup>
+                <f:facet name="footer">
+                    <h:commandButton value="Admit Patient"
+                                     action="#{patientAdmissionBean.admitPatient()}">
+                        <f:param name="patientChosen" value="#{patientAdmissionBean.patient.ID}"/>
+                    </h:commandButton>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

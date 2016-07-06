@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Patient insert</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h2 class="centered headerBorder">Patient Details</h2>
+        <h:form>
+            <h:panelGrid columns="2" class="formBG centered">
+                <h:panelGroup>
+                    <h:outputText value="First Name: " class="noWrap"/>
+                    <h:inputText id="patientFirstNameInputText" required="true"
+                                 requiredMessage="Please enter the patient's first name"
+                                 value="#{patientBean.firstName}" maxlength="20"/>
+                    <h:message for="patientFirstNameInputText" styleClass="error"/>
+                    <br/>
+                    <h:outputText value="Last Name: " class="noWrap"/>
+                    <h:inputText id="patientLastNameInputText" required="true"
+                                 requiredMessage="Please enter the patient's last name"
+                                 value="#{patientBean.lastName}" maxlength="20"/>
+                    <h:message for="patientLastNameInputText" styleClass="error"/> 
+                    <br/>
+                    <h:outputText value="Gender: " class="noWrap"/>
+                    <h:selectOneMenu id="genderInputText" required="true"
+                                     requiredMessage="Please select the patient's gender"
+                                     value="#{patientBean.gender}">
+                        <f:selectItems value="#{patientBean.genderOptionsList}"/>
+                    </h:selectOneMenu>
+                    <h:message for="genderInputText" styleClass="error"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Date of Birth: " class="noWrap"/>
+                    <p:calendar id="dateOfBirth" required="true" yearRange="c-100:c" 
+                                navigator="true"
+                                requiredMessage="Please enter Patients Date of Birth"
+                                value="#{patientBean.dateOfBirth}" pattern="yyy-MM-dd" >
+                        <p:ajax event="dateSelect" listener="#{patientBean.onDateSelect}" />
+                    </p:calendar>
+                    <h:message for="dateOfBirth" styleClass="error"/>
+                    <br/>
+                    <h:outputText value="Insurance Company: " class="noWrap"/>
+                    <h:selectOneMenu id="insuranceNameInput" required="true"
+                                     requiredMessage="Please select patient's insurance company"
+                                     value="#{patientBean.insuranceCo}">
+                        <f:selectItems value="#{patientBean.providerNameList}"/>
+                    </h:selectOneMenu>
+                    <h:message for="insuranceNameInput" styleClass="error"/>
+                </h:panelGroup>
+                <f:facet name="footer">
+                    <h:commandButton value="Save"
+                                     action="#{patientBean.insert_patient()}"/>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Search Patient Base</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="centered headerBorder">
+                <h2>Patient Search</h2>
+
+                <h:outputText value="Search: "/>
+                <h:inputText id="patientSearch" required="true"
+                             requiredMessage="Please enter the patient's last name"
+                             value="#{patientSearchBean.searchTerm}" 
+                             class="textSearchBox"/>
+                <h:message for="patientSearch" styleClass="error"/>
+
+                <h:outputText value="by: "/>
+                <h:selectOneMenu id="searchDomain" required="true"
+                                 requiredMessage="Select a search domain"
+                                 value="#{patientSearchBean.searchDomain}"
+                                 class="selectOneInput">
+                    <f:selectItems value="#{patientSearchBean.domainList}"/>            
+                </h:selectOneMenu>
+                <h:message for="searchDomain" styleClass="error"/>
+
+                <p:commandButton id="patientSearchButton" value="Search"
+                                 action="#{patientSearchBean.search()}"
+                                 update="result_table"
+                                 />
+            </div>
+            <p:defaultCommand target="patientSearchButton" />
+
+            <h:panelGroup id="result_table" class="centered">
+                <h:dataTable value="#{patientSearchBean.searchResults}" var="patient"
+                             border="1" >
+                    <h:column>
+                        <f:facet name="header">Patient ID</f:facet>
+                        <h:outputText value="#{patient.ID}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Last Name</f:facet>
+                            #{patient.lastName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">First Name</f:facet>
+                            #{patient.firstName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Gender</f:facet>
+                            #{patient.gender}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Date of Birth</f:facet>
+                            #{patient.dateOfBirth}
+                    </h:column>
+                    <h:column>
+                        <h:button value="Admit" outcome="admission.xhtml"
+                                  rendered="#{not patient.isAdmitted}">
+                            <f:param name="patientChosen" value="#{patient.ID}"/> 
+                        </h:button>
+                        <h:button value="Visit" outcome="admission_detail.xhtml"
+                                  rendered="#{patient.isAdmitted}">
+                            <f:param name="patientChosen" value="#{patient.ID}"/> 
+                        </h:button>
+                    </h:column>
+                    <h:column>
+                        <h:button value="Discharge" outcome="discharge.xhtml" 
+                                  rendered="#{patient.isAdmitted}">
+                            <f:param name="patientChosen" value="#{patient.ID}"/>
+                        </h:button>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+        <div class="centered">
+            <ul>             
+                <li><a href="insert_new_patient.xhtml">Register New Patient</a></li>
+                <li><a href="insert_doctor.xhtml">Hire New Doctor</a></li>
+                <li><a href="insert_room.xhtml">Add New Room to Hospital</a></li>
+            </ul>
+            <ul>
+                <li><a href="disease_average_stay.xhtml">Statistics of Average Stay by Disease</a></li>
+                <li><a href="doctor_search.xhtml">Search Doctor Diagnosis History</a></li>
+            </ul>
+        </div>
+    </h:body>
+</html>
+

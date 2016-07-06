@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Patient select</title>
+    </h:head>
+    <h:body>
+        <h2>Patient Details</h2>
+        <h:dataTable value="#{patientBean.getPatientList()}" var="patient"
+                     border="1" >
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Patient ID"/>
+                </f:facet>
+                <h:outputText value="#{patient.ID}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient First Name</f:facet>
+                    #{patient.firstName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Patient Last Name</f:facet>
+                    #{patient.lastName}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Gender</f:facet>
+                    #{patient.gender}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Date of Birth</f:facet>
+                    #{patient.dateOfBirth}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Insurance Company</f:facet>
+                    #{patient.insuranceCo}
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</html>

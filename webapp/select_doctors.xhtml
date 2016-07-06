@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Select all doctors</title>
+    </h:head>
+    <h:body>
+        <h2>Doctors Details</h2>
+        <h:dataTable value="#{doctorBean.select_doctors()}" var="doctor"
+                     border="1" >
+            <h:column>
+                <f:facet name="header">Doctor ID</f:facet>
+                    #{doctor.DoctorId}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Doctor Name</f:facet>
+                    #{doctor.Name}
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</html>
+

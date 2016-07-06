@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Insert Room</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h2 class="centered headerBorder">Room Details</h2>
+        <h:form>
+            <h:panelGrid columns="1" class="centered formBG">
+                <h:panelGroup>
+                    <h:outputText value="Room Number: "/>
+                    <h:inputText id="roomNoInputText" required="true"
+                                 requiredMessage="Please enter a room number"
+                                 value="#{roomBean.roomNo}" maxlength="10"/>
+                    <h:message for="roomNoInputText" styleClass="error"/>
+                    <br/>
+                    <h:outputText value="Price: "/>
+                    <h:inputText id="roomPriceInputText" required="true"
+                                 requiredMessage="Please enter the price of the room"
+                                 value="#{roomBean.price}" maxlength="20"/>
+                    <h:message for="roomPriceInputText" styleClass="error"/>
+                </h:panelGroup>
+                <f:facet name="footer">
+                    <h:commandButton value="Save"
+                                     action="#{roomBean.insertRoom()}"/>
+                </f:facet>
+            </h:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>
+

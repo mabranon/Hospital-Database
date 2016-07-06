@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Insert Doctor</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h2 class="centered headerBorder">Doctor Details</h2>
+        <h:form>
+            <h:panelGrid columns="1" class="centered formBG">
+                <h:panelGroup>
+                    <h:outputText value="ID: "/>
+                    <h:inputText id="doctorIDInputText" required="true"
+                                 requiredMessage="Please enter a doctor ID"
+                                 value="#{doctorBean.ID}" maxlength="10"/>
+                    <h:message for="doctorIDInputText" styleClass="error"/>
+                    <br/>
+                    <h:outputText value="Name: "/>
+                    <h:inputText id="doctorNameInputText" required="true"
+                                 requiredMessage="Please enter the doctor's name"
+                                 value="#{doctorBean.name}" maxlength="20"/>
+                    <h:message for="doctorNameInputText" styleClass="error"/>
+                </h:panelGroup>
+                <f:facet name="footer">
+                    <h:commandButton value="Save"
+                                     action="#{doctorBean.insert_doctor()}"/>
+                </f:facet>
+            </h:panelGrid>
+
+        </h:form>
+    </h:body>
+</html>
+

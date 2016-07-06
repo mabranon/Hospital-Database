@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Patient Discharge</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <body>
+        <h2 class="centered headerBorder">Patient Discharge</h2>
+        <h:form>
+            <h:panelGrid columns="2" class="centered formBG">
+                <h:panelGroup>
+                    <h:outputText value="Patient ID: " class="noWrap"/>
+                    <h:outputText id="patientIDText" 
+                                  value="#{dischargeBean.admission.pid}" />
+                    <br/>
+                    <h:outputText value="Last Name: " class="noWrap"/>
+                    <h:outputText id="patientLastNameText" 
+                                  value="#{dischargeBean.admission.LName}"/>
+                    <br/>
+                    <h:outputText value="First Name: " class="noWrap"/>
+                    <h:outputText id="patientFirstNameText" 
+                                  value="#{dischargeBean.admission.FName}"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Date of Admission: " class="noWrap"/>
+                    <h:outputText id="dateOfAdmission" 
+                                  value="#{dischargeBean.admission.dateOfAdmission}"  
+                                  />
+                    <br/>
+                    <h:outputText value="Proposed Date of Discharge: " class="noWrap"/>
+                    <h:outputText id="proposedDischargeDate" 
+                                  value="#{dischargeBean.PDischargeDateString}"  
+                                  />
+                    <br/>
+                    <h:outputText value="Patients Insuror: " class="noWrap"/>
+                    <h:outputText id="patientInsuror" 
+                                  value="#{dischargeBean.patient.insuranceCo}"  
+                                  />
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <h2 class="centered">Treatments</h2>
+            <h:panelGroup class="centered">
+                <h:dataTable value="#{dischargeBean.treatmentList}" var="treatment" 
+                             border="1">
+                    <h:column>
+                        <f:facet name="header">Treatment</f:facet>
+                        <h:outputText value="#{treatment.treatmentName}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Price</f:facet>
+                        <h:outputText value="#{treatment.treatmentPrice}"/>
+                    </h:column>
+                    <f:facet name="footer">
+                        <h:outputText value="Base Charge Per Day: " class="noWrap"/>
+                        <h:outputText value="#{dischargeBean.CHARGE_PER_DAY}" class="rightAlign"/>  
+                        <br/>
+                        <h:outputText value="Room Charge Per Day: " class="noWrap"/>
+                        <h:outputText value="#{dischargeBean.roomCharge}" class="rightAlign"/> 
+                        <br/>
+                        <h:outputText value="Sub-Total: " class="noWrap"/>
+                        <h:outputText value="#{dischargeBean.formatSub}" class="rightAlign"/>    
+                        <br/>
+                        <h:outputText value="Coinsurance: " class="noWrap"/>
+                        <h:outputText value="#{dischargeBean.coinsurance}" class="rightAlign"/>  
+                        <br/>
+                        <h:outputText value="Total: " class="noWrap"/>
+                        <h:outputText value="#{dischargeBean.formatTotal}" class="rightAlign"/>  
+                    </f:facet>
+                </h:dataTable>
+            </h:panelGroup>
+
+            <div class="centered">
+                <h:commandButton value="Discharge Patiet"
+                                 action="#{dischargeBean.dischargePatient}">
+                    <f:param name="patientChosen" value="#{patientAdmissionBean.patient.ID}"/>
+                </h:commandButton>
+            </div>
+        </h:form>
+    </body>
+</html>

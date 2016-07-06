@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Admission Details</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h2 class="centered headerBorder">Admission Details</h2>
+        <h:form>
+            <h:panelGrid columns="2" class="centered formBG">
+                <h:panelGroup>
+                    <h:outputText value="Patient ID: " class="noWrap"/>
+                    <h:outputText id="patientIDText" 
+                                  value="#{patientVisitBean.admission.pid}"/>
+                    <br/>
+                    <h:outputText value="Last Name: " class="noWrap"/>
+                    <h:outputText id="patientLastNameText" 
+                                  value="#{patientVisitBean.admission.LName}"/>
+                    <br/>
+                    <h:outputText value="First Name: " class="noWrap"/>
+                    <h:outputText id="patientFirstNameText" 
+                                  value="#{patientVisitBean.admission.FName}"/>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Date of Admission: " class="noWrap"/>
+                    <h:outputText id="dateOfAdmission" 
+                                  value="#{patientVisitBean.admission.dateOfAdmission}"  
+                                  />
+                    <br/>
+                    <h:outputText value="Current Room Number: " class="noWrap"/>
+                    <h:outputText id="currentRoom" 
+                                  value="#{patientVisitBean.admission.roomNo}"  
+                                  />
+                    <br/>
+                    <h:outputText value="Primary Doctor: " class="noWrap"/>
+                    <h:outputText id="pDoc" 
+                                  value="#{patientVisitBean.admission.docName}"  
+                                  />
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <h3 class="centered">Diagnoses</h3>
+            <h:panelGroup class="centered">
+                <h:dataTable value="#{patientVisitBean.diagList}" var="diag" 
+                             border="1">
+                    <h:column>
+                        <f:facet name="header">Time of Diagnosis</f:facet>
+                        <h:outputText value="#{diag.diagTime}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Physician</f:facet>
+                        <h:outputText value="#{diag.docName}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Diagnosed</f:facet>
+                        <h:outputText value="#{diag.diseaseName}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Treatment</f:facet>
+                        <h:outputText value="#{diag.treatmentName}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+            <br/>
+            <h:panelGrid id="newDiag" columns="3" class="centered formBG">
+                <h:panelGroup>
+                    <h:outputText value="Physician: "/>
+                    <h:selectOneMenu id="selectDoctor" required="true"
+                                     requiredMessage="Select a doctor"
+                                     value="#{patientVisitBean.diagDocName}">
+                        <f:selectItems value="#{patientVisitBean.docNameList}"/>            
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Diagnosis: "/>
+                    <h:selectOneMenu id="selectDisease" required="true"
+                                     requiredMessage="Select a Diagnosis"
+                                     value="#{patientVisitBean.diagDisease}">
+                        <f:selectItems value="#{patientVisitBean.diseaseList}"/>
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <h:outputText value="Treatment: "/>
+                    <h:selectOneMenu id="selectTreatment" required="true"
+                                     requiredMessage="Select a treatment"
+                                     value="#{patientVisitBean.diagTreatment}">
+                        <f:selectItems value="#{patientVisitBean.treatmentList}"/>            
+                    </h:selectOneMenu>
+                </h:panelGroup>
+                <f:facet name="footer">
+                    <h:commandButton value="Enter Diagnosis"
+                                     action="#{patientVisitBean.enterDiagnosis()}">
+                        <f:param name="patientChosen" value="#{patientAdmissionBean.patient.ID}"/>
+                    </h:commandButton>
+                </f:facet>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

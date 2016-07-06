@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Search doctor statistics</title>
+        <h:outputStylesheet library="css" name="stylesheet.css"	/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="centered headerBordere">
+                <h2>Doctor diagnoses search</h2>
+                <h:outputText value="Search: "/>
+                <h:selectOneMenu id="docSearch" required="true"
+                                 requiredMessage="Please select the doctor's name"
+                                 value="#{doctorSearchBean.searchTerm}">
+                    <f:selectItems value="#{doctorSearchBean.docNameList}"/>            
+                </h:selectOneMenu>
+                <h:message for="docSearch" styleClass="error"/>
+                <h:outputText value=" From: "/>
+                <p:calendar id="searchStartDate" required="true" yearRange="c-100:c" 
+                            navigator="true"
+                            requiredMessage="Please enter a date to start"
+                            value="#{doctorSearchBean.startDate}"
+                            class="selectOneInput"
+                            pattern="yyy-MM-dd" >
+                </p:calendar>
+                <h:outputText value="To: "/>
+                <p:calendar id="searchEndDate" required="true" yearRange="c-100:c" 
+                            navigator="true"
+                            requiredMessage="Please enter a date to end"
+                            value="#{doctorSearchBean.endDate}" 
+                            class="selectOneInput"
+                            pattern="yyy-MM-dd" >
+                </p:calendar>
+                <p:commandButton id="search" value="Search"
+                                 action="#{doctorSearchBean.search()}"
+                                 update="diag_result_table"
+                                 />
+            </div>
+            <p:defaultCommand target="search" />
+            <h:panelGroup id="diag_result_table" class="centered">
+                <h:dataTable value="#{doctorSearchBean.searchResults}" var="diag"
+                             border="1" >
+                    <h:column>
+                        <f:facet name="header">Patient ID</f:facet>
+                        <h:outputText value="#{diag.patientNum}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Last Name</f:facet>
+                            #{diag.patientLName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">First Name</f:facet>
+                            #{diag.patientFName}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Time of Diagnosis</f:facet>
+                        <h:outputText value="#{diag.diagTime}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Diagnosed</f:facet>
+                        <h:outputText value="#{diag.diseaseName}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Treatment</f:facet>
+                        <h:outputText value="#{diag.treatmentName}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
+
