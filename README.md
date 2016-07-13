@@ -1,5 +1,5 @@
-# Hospital-Database
-Project for CSC 671 - Database Systems
+# Hospital-Database  
+Project for CSC 671 - Database Systems  
 Team: Michael Branon & Hossam Khader
 ---------------------------------------------
 An SQL database implementation using JavaServer Faces to build the UI meant to mimic a *very* simple hospital database system.
